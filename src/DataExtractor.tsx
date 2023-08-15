@@ -1,5 +1,6 @@
 import * as XLSX from 'xlsx';
 import React, { useState } from 'react';
+import { Button } from 'antd';
 
 export default function DataExtractor() {
   const [excelDataText, setExcelDataText] = useState('');
@@ -33,24 +34,31 @@ export default function DataExtractor() {
   }
  
   return (
-    <>
-      <div>
-        <h2>Extrator de Dados</h2>
+    <div style={{
+      gridTemplateRows: 'auto auto auto auto',
+      marginTop: '200px'
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <h1>Extrator de Dados</h1>
         <input type="file" onChange={handleExcelUpload} accept=".xlsx" />
       </div>
       <div>
-
+        {/* Espaço vazio */}
       </div>
-      <div>
+      <div style={{ textAlign: 'center' }}>
         <h3>Dados Extraídos do Excel:</h3>
         <textarea
           rows={10}
           cols={50}
           value={excelDataText}
-          readOnly 
+          readOnly
         />
       </div>
-        <button  onClick={() => setExcelDataText('')} >Resetar</button>
-    </>
+      <div style={{ textAlign: 'center' }}>
+        <Button type="primary" onClick={() => navigator.clipboard.writeText(excelDataText)}>Copiar</Button>
+        <Button style={{ marginLeft: '10px' }} type="primary" onClick={() => setExcelDataText('')}>Resetar</Button>
+      </div>
+    </div>
+    
   );
 }
